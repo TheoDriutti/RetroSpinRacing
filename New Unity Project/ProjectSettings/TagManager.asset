@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Wheel
-  - Engine
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -13,11 +11,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Line
-  - Borders
-  - Wheel
-  - Piston
-  - Bucket
+  - 
+  - 
+  - Outlined
+  - 
+  - 
   - 
   - 
   - 
