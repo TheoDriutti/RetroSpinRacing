@@ -5,4 +5,5 @@ using UnityEngine;
 public class RoadObject : MonoBehaviour
 {
     public int id;
+    public SpawnManager.RoadObjectIdentity type;
 }

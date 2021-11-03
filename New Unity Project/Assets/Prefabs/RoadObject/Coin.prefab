@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4961787428131214966}
   - component: {fileID: -2909854249385627205}
   m_Layer: 0
-  m_Name: Red
+  m_Name: Coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e1ac3bdc36aff804e8ac37c22abbbf48, type: 2}
+  - {fileID: 2100000, guid: 58cda656f3ce364438939d4864dd6012, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,3 +109,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 1
+  type: 3
