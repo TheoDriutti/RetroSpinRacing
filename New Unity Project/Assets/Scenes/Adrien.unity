@@ -197,6 +197,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 266a6fc24763d8d439fd6fc783bca560, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  time: 0.4
   lanes:
   - lane: 0
     trans: {fileID: 1167305350}
