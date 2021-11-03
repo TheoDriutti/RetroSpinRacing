@@ -6,15 +6,22 @@ using UnityEngine.UI;
 public class BatteryMinigame : MonoBehaviour
 {
     public Transform needle;
+    public Transform jaugeMask;
     public Text timerText;
 
+    [Header("Aiguille")]
     public float angularSpeed;
     public float lerpSpeed;
     public float decaySpeed;
-    public float minigameDuration;
-
     public float angleAmplitude;
 
+    [Header("Jauge")]
+    public float jaugeCoeff;
+    public float jaugeSize;
+
+    public float minigameDuration;
+
+    [Header("Score")]
     public float trancheScore;
     public float maxSpeedScore;
 
@@ -22,6 +29,9 @@ public class BatteryMinigame : MonoBehaviour
     private float targetAngle;
     private float minigameTimer = 0f;
     private bool minigameActive = true;
+    private int contactCounter;
+    private int savedCounter;
+    private float elapsedTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -41,6 +51,7 @@ public class BatteryMinigame : MonoBehaviour
 
                 RegisterInputs();
                 MoveNeedle();
+                MoveJauge();
             }
 
             else
@@ -48,6 +59,7 @@ public class BatteryMinigame : MonoBehaviour
                 Finish();
             }
         }
+
     }
 
     void MoveNeedle()
@@ -61,11 +73,27 @@ public class BatteryMinigame : MonoBehaviour
         needle.rotation = Quaternion.Lerp(needle.rotation, Quaternion.Euler(0, 0, targetAngle), Time.deltaTime * lerpSpeed);
     }
 
+    void MoveJauge()
+    {
+        elapsedTime += Time.deltaTime;
+        if (elapsedTime > .5f)
+        {
+
+            elapsedTime = 0f;
+            savedCounter = contactCounter;
+            contactCounter = 0;
+        }
+
+        float newJaugeSize = savedCounter * jaugeSize / jaugeCoeff;
+        jaugeMask.localScale = new Vector3(Mathf.Lerp(jaugeMask.localScale.x, newJaugeSize, Time.deltaTime * lerpSpeed / 2), jaugeMask.localScale.y, jaugeMask.localScale.z);
+    }
+
     void Finish()
     {
         float anglePercentage = (-targetAngle + angleAmplitude) / (2 * angleAmplitude);
         float score = anglePercentage * maxSpeedScore;
         score -= score % trancheScore;
+        Debug.Log("Score : " + score);
 
         minigameActive = false;
     }
@@ -82,6 +110,7 @@ public class BatteryMinigame : MonoBehaviour
             if (isContact) isContact = false;
 
             targetAngle -= angularSpeed;
+            contactCounter++;
         }
     }
 }
