@@ -316,6 +316,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dab7ed8cb4cf19a4182f7c212eebcecc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  minigameDuration: 20
   needle: {fileID: 113383931}
   jaugeMask: {fileID: 1812628710}
   timerText: {fileID: 899582923}
@@ -325,7 +326,6 @@ MonoBehaviour:
   angleAmplitude: 95
   jaugeCoeff: 15
   jaugeSize: 500
-  minigameDuration: 20
   trancheScore: 20
   maxSpeedScore: 220
 --- !u!4 &837820057
@@ -674,8 +674,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1812628709}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4884, y: -2.4469, z: 21}
-  m_LocalScale: {x: 0.70695597, y: 8.5390625, z: 1}
+  m_LocalPosition: {x: -6.5036, y: -2.4469, z: 21}
+  m_LocalScale: {x: 0.5172097, y: 8.5390625, z: 1}
   m_Children: []
   m_Father: {fileID: 929011433}
   m_RootOrder: 3
@@ -767,7 +767,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.6415094, g: 0.6415094, b: 0.6415094, a: 0}
+  m_BackGroundColor: {r: 0.16037738, g: 0.16037738, b: 0.16037738, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

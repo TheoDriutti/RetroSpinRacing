@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class BatteryMinigame : MonoBehaviour
 {
+    public float minigameDuration;
+
+    [Header("References")]
     public Transform needle;
     public Transform jaugeMask;
     public Text timerText;
@@ -18,8 +21,6 @@ public class BatteryMinigame : MonoBehaviour
     [Header("Jauge")]
     public float jaugeCoeff;
     public float jaugeSize;
-
-    public float minigameDuration;
 
     [Header("Score")]
     public float trancheScore;
