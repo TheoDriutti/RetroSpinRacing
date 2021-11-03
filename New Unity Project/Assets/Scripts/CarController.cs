@@ -78,6 +78,25 @@ public class CarController : MonoBehaviour
                 currentTime = 0f;
             }
         }
+
+        switch (currentLane)
+        {
+            case Lanes.CRASH_LEFT:
+                break;
+            case Lanes.LEFT:
+                transform.SetPositionAndRotation(transform.position, Quaternion.Euler(transform.rotation.x, transform.rotation.y, -10));
+                break;
+            case Lanes.CENTER:
+                transform.SetPositionAndRotation(transform.position, Quaternion.Euler(transform.rotation.x, transform.rotation.y, 0));
+                break;
+            case Lanes.RIGHT:
+                transform.SetPositionAndRotation(transform.position, Quaternion.Euler(transform.rotation.x, transform.rotation.y, 10));
+                break;
+            case Lanes.CRASH_RIGHT:
+                break;
+            default:
+                break;
+        }
     }
 
     Vector3 LerpOriginToTarget(Vector3 origin, Vector3 target, float time)
