@@ -15,6 +15,7 @@ public class UIScoreManager : MonoBehaviour
     private float timer;
     private float addScore;
     public float timerStart;
+    public bool pause;
 
     private void Awake()
     {
@@ -63,9 +64,12 @@ public class UIScoreManager : MonoBehaviour
     }
     public void UpdateTimer()
     {
-        timer -= Time.deltaTime;
-        TimerTxt.text = "Time : " + timer.ToString("F0");
-        if (timer <= 0) Gino.instance.player.GameOver();
+        if (!pause)
+        {
+            timer -= Time.deltaTime;
+            TimerTxt.text = "Time : " + timer.ToString("F0");
+            if (timer <= 0) Gino.instance.player.GameOver();
+        }
     }
     public void AddTime(float amount)
     {

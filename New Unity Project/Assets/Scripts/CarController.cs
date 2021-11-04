@@ -38,6 +38,7 @@ public class CarController : MonoBehaviour
     private Coroutine slowed;
     private bool gameOver = false;
     private bool pause = false;
+    private int life = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -186,7 +187,6 @@ public class CarController : MonoBehaviour
     {
         if (other.gameObject.GetComponent<RoadObject>() != null)
         {
-            Debug.Log("Touched");
             switch (other.gameObject.GetComponent<RoadObject>().type)
             {
                 case SpawnManager.RoadObjectIdentity.EMPTY:
@@ -205,6 +205,21 @@ public class CarController : MonoBehaviour
                     UIScoreManager.instance.UpdateScore(coinScoreValue);
                     break;
                 case SpawnManager.RoadObjectIdentity.BONUS:
+                    UIScoreManager.instance.pause = true;
+                    if (life < 1)
+                    {
+                        int rand = Random.Range(0, 3);
+                        Gino.instance.miniGames[rand].SetActive(true);
+                        Debug.Log(rand);
+                        Gino.instance.spawnManager.AddToRecycleList(other.gameObject.GetComponent<RoadObject>());
+                    }
+                    else
+                    {
+                        int rand = Random.Range(0, 2);
+                        Gino.instance.miniGames[rand].SetActive(true);
+                        Debug.Log(Gino.instance.miniGames[rand].GetType().Name);
+                        Gino.instance.spawnManager.AddToRecycleList(other.gameObject.GetComponent<RoadObject>());
+                    }
                     break;
                 default:
                     break;

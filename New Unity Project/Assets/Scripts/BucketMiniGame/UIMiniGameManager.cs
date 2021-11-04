@@ -50,4 +50,9 @@ public class UIMiniGameManager : MonoBehaviour
         timeDrop = 3;
         timeDropGO.SetActive(true);
     }
+
+    private void OnDisable()
+    {
+        UIScoreManager.instance.pause = false;
+    }
 }

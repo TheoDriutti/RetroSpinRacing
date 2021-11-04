@@ -7,6 +7,7 @@ public class Gino : MonoBehaviour {
     public SpawnManager spawnManager;
     public DecorManager decorManager;
     public CarController player;
+    public GameObject[] miniGames;
 
     void Awake() {
         if (instance == null) {

@@ -45,7 +45,7 @@ public class SpawnManager : MonoBehaviour {
 
     void Update() {
         if (sectionsOnTheRoad.Count == 0 || sectionsOnTheRoad.Count!= 0 && sectionsOnTheRoad[sectionsOnTheRoad.Count - 1].transform.position.z < (spawnSectionPoint.position.z - spawnDist)) {
-            Debug.Log("Position :" + roadObjects[roadObjects.Length - 1].transform.position.z + " Deuxieme : " + spawnSectionPoint.position.z + " Troisième :" + spawnDist + "Quatrième :" + (spawnSectionPoint.position.z - spawnDist));
+            //Debug.Log("Position :" + roadObjects[roadObjects.Length - 1].transform.position.z + " Deuxieme : " + spawnSectionPoint.position.z + " Troisième :" + spawnDist + "Quatrième :" + (spawnSectionPoint.position.z - spawnDist));
                 MakeTheWay();
         }
     }
@@ -57,9 +57,9 @@ public class SpawnManager : MonoBehaviour {
         RoadObject centerObjectSpawned = GiveRoadObject(1, RoadObjectIdentity.EMPTY);
         RoadObject rightObjectSpawned = GiveRoadObject(2, RoadObjectIdentity.EMPTY);
         int lastSectionID = sectionsOnTheRoad.Count == 0 ? 7 : sectionsOnTheRoad[sectionsOnTheRoad.Count - 1].id;
-        Debug.Log("lastsectionId : " + lastSectionID);
+        //Debug.Log("lastsectionId : " + lastSectionID);
         int roadConfiguration = 7;
-        Debug.Log("isOneMoreSectionNeeded 1 : " + isOneMoreSectionNeeded);
+        //Debug.Log("isOneMoreSectionNeeded 1 : " + isOneMoreSectionNeeded);
         if (sectionsOnTheRoad.Count > 2 && lastSectionID == 5 && sectionsOnTheRoad[sectionsOnTheRoad.Count - 1].id == 5) {
             isOneMoreSectionNeeded = RandomBetween(new int[] { 1, 3, 4, 6, 7 });
         }
@@ -68,9 +68,9 @@ public class SpawnManager : MonoBehaviour {
             isOneMoreSectionNeeded = 0;
         } else {
             int possibleway = Random.Range(1, (oneWayPercent * 3 + twoWayPercent * 3 + (100 - oneWayPercent - twoWayPercent) * 3) / 3 + 1);
-            Debug.Log("PossibleWay :" + possibleway);
+            //Debug.Log("PossibleWay :" + possibleway);
             if (possibleway <= oneWayPercent / 3) {
-                Debug.Log("Way : " + 1);
+                //Debug.Log("Way : " + 1);
                 if (lastSectionID == 1 || lastSectionID == 3 || lastSectionID == 5 || lastSectionID == 7) {
                     roadConfiguration = 1;
                 } else if (lastSectionID == 2 || lastSectionID == 6) {
@@ -81,7 +81,7 @@ public class SpawnManager : MonoBehaviour {
                     isOneMoreSectionNeeded = 1;
                 }
             } else if (possibleway <= oneWayPercent / 3 * 2) {
-                Debug.Log("Way : " + 2);
+                //Debug.Log("Way : " + 2);
                 if (lastSectionID == 2 || lastSectionID == 3 || lastSectionID == 6 || lastSectionID == 7) {
                     roadConfiguration = 2;
                 } else if (lastSectionID == 1) {
@@ -95,7 +95,7 @@ public class SpawnManager : MonoBehaviour {
                     isOneMoreSectionNeeded = 2;
                 }
             } else if (possibleway <= oneWayPercent) {
-                Debug.Log("Way : " + 4);
+                //Debug.Log("Way : " + 4);
                 if (lastSectionID == 4 || lastSectionID == 5 || lastSectionID == 6 || lastSectionID == 7) {
                     roadConfiguration = 4;
                 } else if (lastSectionID == 2 || lastSectionID == 3) {
@@ -106,7 +106,7 @@ public class SpawnManager : MonoBehaviour {
                     isOneMoreSectionNeeded = 4;
                 }
             } else if (possibleway <= oneWayPercent + twoWayPercent / 3) {
-                Debug.Log("Way : " + 3);
+                //Debug.Log("Way : " + 3);
                 if (lastSectionID == 1 || lastSectionID == 2 || lastSectionID == 3 || lastSectionID == 5 || lastSectionID == 6 || lastSectionID == 7) {
                     roadConfiguration = 3;
                 } else {
@@ -114,7 +114,7 @@ public class SpawnManager : MonoBehaviour {
                     isOneMoreSectionNeeded = 3;
                 }
             } else if (possibleway <= oneWayPercent + twoWayPercent / 3 * 2) {
-                Debug.Log("Way : " + 5);
+                //Debug.Log("Way : " + 5);
                 if (lastSectionID == 5 || lastSectionID == 7) {
                     roadConfiguration = 5;
                 } else {
@@ -122,7 +122,7 @@ public class SpawnManager : MonoBehaviour {
                     isOneMoreSectionNeeded = 5;
                 }
             } else if (possibleway <= oneWayPercent + twoWayPercent) {
-                Debug.Log("Way : " + 6);
+                //Debug.Log("Way : " + 6);
                 if (lastSectionID == 2 || lastSectionID == 3 || lastSectionID == 4 || lastSectionID == 5 || lastSectionID == 6 || lastSectionID == 7) {
                     roadConfiguration = 6;
                 } else {
@@ -130,7 +130,7 @@ public class SpawnManager : MonoBehaviour {
                     isOneMoreSectionNeeded = 6;
                 }
             } else {
-                Debug.Log("Way : " + 7);
+                //Debug.Log("Way : " + 7);
                 roadConfiguration = 7;
             }
         }
@@ -173,8 +173,8 @@ public class SpawnManager : MonoBehaviour {
                 rightObjectSpawned = GiveRoadObject(2, RoadObjectIdentity.COIN, coinPercentOnRoad);
                 break;
         }
-        Debug.Log("roadConfiguration : " + roadConfiguration);
-        Debug.Log("isOneMoreSectionNeeded 2 : " + isOneMoreSectionNeeded);
+        //Debug.Log("roadConfiguration : " + roadConfiguration);
+        //Debug.Log("isOneMoreSectionNeeded 2 : " + isOneMoreSectionNeeded);
 
         sectionsOnTheRoad.Add(MakeNewSection(leftObjectSpawned, centerObjectSpawned, rightObjectSpawned));
     }
@@ -238,7 +238,7 @@ public class SpawnManager : MonoBehaviour {
 
         } else {
             Destroy(toRecycle);
-            Debug.Log("Destroy");
+            //Debug.Log("Destroy");
         }
     }
 

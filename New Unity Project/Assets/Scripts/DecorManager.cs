@@ -8,7 +8,8 @@ public class DecorManager : MonoBehaviour
     public float spawnDelay;
     public GameObject[] decors;
     public Transform[] spawnPoint;
-    public int range;
+    public float rangeX;
+    public float rangeY;
 
     public float lampSpawnDelay;
     public GameObject lampadaire;
@@ -40,7 +41,7 @@ public class DecorManager : MonoBehaviour
         int randomSpawnPoint = Random.Range(0, 2);
         GameObject obj = Instantiate(decors[Random.Range(0, decors.Length)], spawnPoint[randomSpawnPoint], false);
         obj.AddComponent<DecoMovement>();
-        obj.transform.position = new Vector3(Random.Range(spawnPoint[randomSpawnPoint].position.x - range, spawnPoint[randomSpawnPoint].position.x + range), spawnPoint[randomSpawnPoint].position.y, spawnPoint[randomSpawnPoint].position.z);
+        obj.transform.position = new Vector3(Random.Range(spawnPoint[randomSpawnPoint].position.x - rangeX, spawnPoint[randomSpawnPoint].position.x + rangeX), Random.Range(spawnPoint[randomSpawnPoint].position.y - rangeY, 0f), spawnPoint[randomSpawnPoint].position.z);
         currentTime = 0f;
     }
 

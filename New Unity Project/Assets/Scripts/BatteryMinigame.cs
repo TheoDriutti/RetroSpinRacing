@@ -100,7 +100,7 @@ public class BatteryMinigame : MonoBehaviour
         float anglePercentage = (-targetAngle + angleAmplitude) / (2 * angleAmplitude);
         float score = anglePercentage * maxSpeedScore;
         score -= score % trancheScore;
-        Debug.Log("Score : " + score);
+        //Debug.Log("Score : " + score);
 
         minigameActive = false;
     }
@@ -131,5 +131,16 @@ public class BatteryMinigame : MonoBehaviour
     private void OnEnable()
     {
         Gino.instance.player.PauseGame(true);
+        ResetTimer();
+    }
+
+    private void OnDisable()
+    {
+        UIScoreManager.instance.pause = false;        
+    }
+
+    private void ResetTimer()
+    {
+        minigameTimer = 0;
     }
 }
