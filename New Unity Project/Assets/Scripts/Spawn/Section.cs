@@ -41,6 +41,18 @@ public class Section : MonoBehaviour {
             this.right.gameObject.SetActive(true);
         }
         this.right.transform.SetParent(transform);
+        this.left.transform.eulerAngles = new Vector3(0, 0, 0);
+        this.center.transform.eulerAngles = new Vector3(0, 0, 0);
+        this.right.transform.eulerAngles = new Vector3(0, 0, 0);
+        if (this.left.GetComponent<Rigidbody>()) {
+        this.left.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        if (this.center.GetComponent<Rigidbody>()) {
+            this.center.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+        if (this.right.GetComponent<Rigidbody>()) {
+            this.right.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
         id = 0;
         if (left.type != SpawnManager.RoadObjectIdentity.VEHICULE && left.type != SpawnManager.RoadObjectIdentity.SLOW) {
             id++;
