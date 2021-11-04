@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gino : MonoBehaviour {
     public static Gino instance;
     public SpawnManager spawnManager;
+    public DecorManager decorManager;
     void Awake() {
         if (instance == null) {
             instance = this;

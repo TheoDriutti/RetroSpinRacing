@@ -33,7 +33,6 @@ public class DecorManager : MonoBehaviour
         int randomSpawnPoint = Random.Range(0, 2);
         GameObject obj = Instantiate(decors[Random.Range(0, decors.Length)], spawnPoint[randomSpawnPoint], false);
         obj.transform.position = new Vector3(Random.Range(spawnPoint[randomSpawnPoint].position.x - range, spawnPoint[randomSpawnPoint].position.x + range), spawnPoint[randomSpawnPoint].position.y, spawnPoint[randomSpawnPoint].position.z);
-        obj.AddComponent<DecoMovement>().speed = decorSpeed;
         currentTime = 0f;
     }
 
