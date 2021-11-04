@@ -190,7 +190,7 @@ MonoBehaviour:
   numberOfMovements: 15
   journeyTime: 0.3
   coinTransform: {fileID: 407294162}
-  coinSprite: {fileID: 0}
+  coinSpriteRenderer: {fileID: 407294161}
   cupOpened: {fileID: 0}
   cupClosed: {fileID: 0}
 --- !u!4 &81973156
@@ -396,7 +396,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   degreesPerSecond: 0
-  amplitude: 0.5
+  amplitude: 0.4
   frequency: 1
 --- !u!1 &494323367
 GameObject:
