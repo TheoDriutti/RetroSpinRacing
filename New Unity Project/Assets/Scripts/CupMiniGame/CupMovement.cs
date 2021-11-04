@@ -107,12 +107,12 @@ public class CupMovement : MonoBehaviour
 
     public void MovementRandomizer()
     {
-        Transform randomCup1 = cupList[Random.Range(0, 2)];
-        Transform randomCup2 = cupList[Random.Range(0, 2)];
+        Transform randomCup1 = cupList[Random.Range(0, 3)];
+        Transform randomCup2 = cupList[Random.Range(0, 3)];
 
         while (randomCup1.position == randomCup2.position)
         {
-            randomCup2 = cupList[Random.Range(0, 2)];
+            randomCup2 = cupList[Random.Range(0, 3)];
         }
 
         SetMovement(ref randomCup1, ref randomCup2);
@@ -140,7 +140,7 @@ public class CupMovement : MonoBehaviour
 
     public void CoinRandomizer()
     {
-        Transform randomCupCoin = cupList[Random.Range(0, 2)];
+        Transform randomCupCoin = cupList[Random.Range(0, 3)];
         coinTransform.position = randomCupCoin.position + new Vector3(0, 10, 0);
         coinTransform.gameObject.SetActive(true);
         StartCoroutine(LerpCoin());
