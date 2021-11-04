@@ -521,15 +521,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roadObjects:
   - {fileID: -2909854249385627205, guid: 4aa8e7465c363794ab7097fe7c332f69, type: 3}
+  - {fileID: -2909854249385627205, guid: c2c269778f37bfc429a394ac1f9ea7be, type: 3}
+  - {fileID: -2909854249385627205, guid: 6903fd3d14b4ffe4c9bee7df3e42d63e, type: 3}
   - {fileID: -2909854249385627205, guid: c015b533629654d4cbf3d70624cf51bc, type: 3}
-  objectSpeed: 10
-  spawnDelay: 0.25
+  - {fileID: -2909854249385627205, guid: d39d4ec311320dd4ca8f9583c900b18b, type: 3}
+  - {fileID: -2909854249385627205, guid: de86fe884310b0b4095d1172018c25c6, type: 3}
+  - {fileID: -2909854249385627205, guid: da851364eff098745ad6de0953130d0a, type: 3}
+  objectSpeed: 20
+  spawnDelay: 0.2
+  oneWayPercent: 70
+  twoWayPercent: 28
+  coinPercentOnRoad: 15
+  bonusPercentOnCoin: 1
+  weightSlow: 20
   sectionRecycled: []
   sectionsOnTheRoad: []
   recycler: {fileID: 2076867740}
   section: {fileID: 6738819380005437079, guid: c861e50e3fd85a0409987957cc3aebb7, type: 3}
   car: {fileID: 165811780}
   spawnSectionPoint: {fileID: 1787842875}
+  isOneMoreSectionNeeded: 0
+  startVehiculeRange: 3
+  startSlowRange: 5
 --- !u!4 &1342120192
 Transform:
   m_ObjectHideFlags: 0
