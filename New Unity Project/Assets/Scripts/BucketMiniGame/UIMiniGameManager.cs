@@ -7,7 +7,7 @@ public class UIMiniGameManager : MonoBehaviour
 {
     public static UIMiniGameManager instance = null;
 
-    public int currentScore;
+    public int currentScore = 0;
     public Text scoreText;
     public Image nextItem;
     public Sprite[] imgs;
