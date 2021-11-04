@@ -5,12 +5,14 @@ using UnityEngine;
 public class DecorManager : MonoBehaviour
 {
     public float decorSpeed;
+    public float lampSpeed;
     public float spawnDelay;
     public float lampSpawnDelay;
     public GameObject[] decors;
+    public GameObject lampadaire;
     public Transform[] spawnPoint;
+    public Transform[] lampSpawns;
     public int range;
-    public float lampCoeff;
 
     private float currentTime = 0f;
     private float lampTime = 0f;
@@ -32,6 +34,7 @@ public class DecorManager : MonoBehaviour
     {
         int randomSpawnPoint = Random.Range(0, 2);
         GameObject obj = Instantiate(decors[Random.Range(0, decors.Length)], spawnPoint[randomSpawnPoint], false);
+        obj.AddComponent<DecoMovement>();
         obj.transform.position = new Vector3(Random.Range(spawnPoint[randomSpawnPoint].position.x - range, spawnPoint[randomSpawnPoint].position.x + range), spawnPoint[randomSpawnPoint].position.y, spawnPoint[randomSpawnPoint].position.z);
         currentTime = 0f;
     }
@@ -50,12 +53,22 @@ public class DecorManager : MonoBehaviour
     {
         if (lampTime < lampSpawnDelay)
         {
-            lampTime += Time.deltaTime - Gino.instance.spawnManager.car.GetSpeed() * lampCoeff;
+            lampTime += Time.deltaTime;
         }
         else
         {
-            //Instantiate()
-            //lampTime = 0f;
+            Debug.Log("instantiate");
+            GameObject obj = Instantiate(lampadaire, lampSpawns[0], false);
+            GameObject obj2 = Instantiate(lampadaire, lampSpawns[1], false);
+            obj.AddComponent<LampMovement>();
+            obj2.AddComponent<LampMovement>();
+            obj.transform.Rotate(new Vector3(0, 0, 180));
+            lampTime = 0f;
         }
+    }
+
+    void SpawnRoad()
+    {
+        //if ()
     }
 }
