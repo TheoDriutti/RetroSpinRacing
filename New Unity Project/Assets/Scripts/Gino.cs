@@ -8,6 +8,7 @@ public class Gino : MonoBehaviour {
     public DecorManager decorManager;
     public CarController player;
     public GameObject[] miniGames;
+    public ParticleSystem[] ps;
 
     void Awake() {
         if (instance == null) {
