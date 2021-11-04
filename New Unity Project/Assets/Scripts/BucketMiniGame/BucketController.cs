@@ -14,18 +14,18 @@ public class BucketController : MonoBehaviour
             if (index == 0)
             {
                 if (collision.gameObject.layer == 8)
-                    UIManager.instance.currentScore++;
+                    UIMiniGameManager.instance.currentScore++;
                 if (collision.gameObject.layer == 9)
-                    UIManager.instance.currentScore--;
+                    Gino.instance.isPause;
             }
             if (index == 1)
             {
                 if (collision.gameObject.layer == 8)
-                    UIManager.instance.currentScore--;
+                    //End
                 if (collision.gameObject.layer == 9)
-                    UIManager.instance.currentScore++;
+                    UIMiniGameManager.instance.currentScore++;
             }
-            UIManager.instance.HandleScore();
+            UIMiniGameManager.instance.HandleScore();
             Destroy(collision.gameObject);
         }
     }

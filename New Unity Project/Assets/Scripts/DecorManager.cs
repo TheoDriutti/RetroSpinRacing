@@ -59,7 +59,7 @@ public class DecorManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("instantiate");
+            //Debug.Log("instantiate");
             GameObject obj = Instantiate(lampadaire, lampSpawns[0], false);
             GameObject obj2 = Instantiate(lampadaire, lampSpawns[1], false);
             obj.AddComponent<LampMovement>();

@@ -13,6 +13,7 @@ public class UIScoreManager : MonoBehaviour
     private int cp, score;
     public int cpMax, scoreStart;
     private float timer;
+    private float addScore;
     public float timerStart;
 
     private void Awake()
@@ -37,7 +38,10 @@ public class UIScoreManager : MonoBehaviour
     public void ResetCheckPoint()
     {
         cp = cpMax;
+        addScore = Mathf.Ceil(timer);
+        UpdateScore((int)addScore);
         CheckPointTxt.text = "CP : " + cp + " / " + cpMax;
+        ResetTimer();
     }
     public void ResetTimer()
     {
@@ -53,6 +57,7 @@ public class UIScoreManager : MonoBehaviour
     public void UpdateCheckPoint()
     {
         cp--;
+        if (cp <= 0) ResetCheckPoint();
         CheckPointTxt.text = "CP : " + cp + " / " + cpMax;
     }
     public void UpdateTimer()

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIMiniGameManager : MonoBehaviour
 {
-    public static UIManager instance = null;
+    public static UIMiniGameManager instance = null;
 
     public int currentScore;
     public Text scoreText;
