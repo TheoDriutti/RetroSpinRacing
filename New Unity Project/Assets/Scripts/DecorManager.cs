@@ -16,6 +16,9 @@ public class DecorManager : MonoBehaviour
 
     public GameObject roadPrefab;
     public Transform roadSpawn;
+    
+    public GameObject roadBGPrefab;
+    public Transform roadBGSpawn;
 
     private float currentTime = 0f;
     private float lampTime = 0f;
@@ -74,4 +77,13 @@ public class DecorManager : MonoBehaviour
         GameObject road = Instantiate(roadPrefab, roadSpawn.position, Quaternion.identity);
         road.AddComponent<RoadMovement>();
     }
+
+    public void SpawnRoadBG()
+    {
+        GameObject road = Instantiate(roadBGPrefab, roadBGSpawn.position, Quaternion.identity);
+        //road.AddComponent<RoadMovement>();
+        road.transform.Rotate(new Vector3(90, 0, 0));
+    }
+
+
 }
