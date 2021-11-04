@@ -6,6 +6,7 @@ public class Gino : MonoBehaviour {
     public static Gino instance;
     public SpawnManager spawnManager;
     public DecorManager decorManager;
+    public SoundManager soundManager;
     public CarController player;
     public GameObject[] miniGames;
 

@@ -28,7 +28,13 @@ public class CarController : MonoBehaviour
     public AnimationCurve speedModifierInInterval;
     public float slowLerp;
     public float slowLerpTime;
+    [Header("GainCoin")]
+    public float biggerTime = 0.1f;
+    public float bigSize = 1.6f;
+    public float normalSize = 1.25f;
     public int coinScoreValue;
+    public GameObject littleGreen;
+
     private Lanes currentLane;
     private float currentTime = 0f;
     private int inputTapNumber = 0;
@@ -36,6 +42,7 @@ public class CarController : MonoBehaviour
     private float currentTapNumberTimer = 0f;
     private float oldLerpTime;
     private Coroutine slowed;
+    private Coroutine bigger;
     private bool gameOver = false;
     private bool pause = false;
     private int life = 0;
@@ -50,6 +57,7 @@ public class CarController : MonoBehaviour
         speedModifierInInterval.preWrapMode = WrapMode.Clamp;
         speedModifierInInterval.postWrapMode = WrapMode.Clamp;
         oldLerpTime = lerpTime;
+        Gino.instance.soundManager.Play("Music");
     }
 
     // Update is called once per frame
@@ -203,6 +211,9 @@ public class CarController : MonoBehaviour
                 case SpawnManager.RoadObjectIdentity.COIN:
                     Gino.instance.spawnManager.AddToRecycleList(other.gameObject.GetComponent<RoadObject>());
                     UIScoreManager.instance.UpdateScore(coinScoreValue);
+                    if (bigger == null) {
+                        bigger = StartCoroutine(BiggerTimer(biggerTime));
+                    }
                     break;
                 case SpawnManager.RoadObjectIdentity.BONUS:
                     UIScoreManager.instance.pause = true;
@@ -244,5 +255,14 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(timer);
         lerpTime = oldLerpTime;
         slowed = null;
+    }
+
+    IEnumerator BiggerTimer(float timer) {
+        transform.localScale = new Vector3(bigSize, bigSize, bigSize);
+        littleGreen.SetActive(true);
+        yield return new WaitForSeconds(timer);
+        littleGreen.SetActive(false);
+        transform.localScale = new Vector3(normalSize, normalSize, normalSize);
+        bigger = null;
     }
 }
