@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UIScoreManager : MonoBehaviour
 {
-    private static UIScoreManager instance = null;
+    public static UIScoreManager instance = null;
     public Text CheckPointTxt;
     public Text TimerTxt;
     public Text ScoreTxt;

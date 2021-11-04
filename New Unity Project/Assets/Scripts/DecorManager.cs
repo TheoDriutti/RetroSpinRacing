@@ -5,14 +5,17 @@ using UnityEngine;
 public class DecorManager : MonoBehaviour
 {
     public float decorSpeed;
-    public float lampSpeed;
     public float spawnDelay;
-    public float lampSpawnDelay;
     public GameObject[] decors;
-    public GameObject lampadaire;
     public Transform[] spawnPoint;
-    public Transform[] lampSpawns;
     public int range;
+
+    public float lampSpawnDelay;
+    public GameObject lampadaire;
+    public Transform[] lampSpawns;
+
+    public GameObject roadPrefab;
+    public Transform roadSpawn;
 
     private float currentTime = 0f;
     private float lampTime = 0f;
@@ -20,7 +23,6 @@ public class DecorManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
     }
 
     // Update is called once per frame
@@ -67,8 +69,9 @@ public class DecorManager : MonoBehaviour
         }
     }
 
-    void SpawnRoad()
+    public void SpawnRoad()
     {
-        //if ()
+        GameObject road = Instantiate(roadPrefab, roadSpawn.position, Quaternion.identity);
+        road.AddComponent<RoadMovement>();
     }
 }
