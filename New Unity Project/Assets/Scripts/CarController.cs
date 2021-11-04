@@ -201,7 +201,7 @@ public class CarController : MonoBehaviour
                     }
                     break;
                 case SpawnManager.RoadObjectIdentity.COIN:
-                    Debug.Log("dfefdeyfdedfeydffey : " + UIScoreManager.instance.GetScore());
+                    Gino.instance.spawnManager.AddToRecycleList(other.gameObject.GetComponent<RoadObject>());
                     UIScoreManager.instance.UpdateScore(coinScoreValue);
                     break;
                 case SpawnManager.RoadObjectIdentity.BONUS:

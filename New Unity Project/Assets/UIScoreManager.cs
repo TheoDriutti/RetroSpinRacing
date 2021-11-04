@@ -57,6 +57,7 @@ public class UIScoreManager : MonoBehaviour
     public void UpdateCheckPoint()
     {
         cp--;
+        UpdateScore(1);
         if (cp <= 0) ResetCheckPoint();
         CheckPointTxt.text = "CP : " + cp + " / " + cpMax;
     }
@@ -64,7 +65,12 @@ public class UIScoreManager : MonoBehaviour
     {
         timer -= Time.deltaTime;
         TimerTxt.text = "Time : " + timer.ToString("F0");
-        //if (timer <= 0) GameOver;
+        if (timer <= 0) Gino.instance.player.GameOver();
+    }
+    public void AddTime(float amount)
+    {
+        timer += amount;
+        TimerTxt.text = "Time : " + timer.ToString("F0");
     }
     public void UpdateScore(int amount)
     {

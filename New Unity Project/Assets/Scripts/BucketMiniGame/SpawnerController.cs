@@ -17,6 +17,7 @@ public class SpawnerController : MonoBehaviour
     void Start()
     {
         pos = transform.position;
+        timerDrop = 3;
     }
 
     // Update is called once per frame
@@ -38,5 +39,10 @@ public class SpawnerController : MonoBehaviour
             timerDrop = timeToSpawn;
         }
 
+    }
+
+    private void OnEnable()
+    {
+        timerDrop = 3;
     }
 }

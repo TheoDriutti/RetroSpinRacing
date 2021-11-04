@@ -34,6 +34,8 @@ public class BatteryMinigame : MonoBehaviour
     private int savedCounter;
     private float elapsedTime = 0f;
 
+    public GameObject MiniGame_Parent;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -54,11 +56,14 @@ public class BatteryMinigame : MonoBehaviour
                 MoveNeedle();
                 MoveJauge();
             }
-
             else
             {
                 Finish();
             }
+        }
+        else
+        {
+            EndMiniGame();
         }
 
     }
@@ -71,6 +76,8 @@ public class BatteryMinigame : MonoBehaviour
         }
 
         targetAngle = Mathf.Clamp(targetAngle, -angleAmplitude, angleAmplitude);
+        //if(needle.rotation == new Quaternion()) Finish();
+        //Quaternion.
         needle.rotation = Quaternion.Lerp(needle.rotation, Quaternion.Euler(0, 0, targetAngle), Time.deltaTime * lerpSpeed);
     }
 
@@ -112,5 +119,17 @@ public class BatteryMinigame : MonoBehaviour
             targetAngle -= angularSpeed;
             contactCounter++;
         }
+    }
+
+    private void EndMiniGame()
+    {
+        UIScoreManager.instance.AddTime(minigameDuration - minigameTimer);
+        Gino.instance.player.PauseGame(false);
+        MiniGame_Parent.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        Gino.instance.player.PauseGame(true);
     }
 }

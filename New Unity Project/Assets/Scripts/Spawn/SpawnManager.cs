@@ -16,7 +16,7 @@ public class SpawnManager : MonoBehaviour {
 
     [Header("Variables")]
     public float objectSpeed;
-    public float spawnDelay = 0;
+    public float spawnDist = 0;
     public int oneWayPercent = 70;
     public int twoWayPercent = 28;
     public int coinPercentOnRoad = 5;
@@ -44,14 +44,9 @@ public class SpawnManager : MonoBehaviour {
     }
 
     void Update() {
-
-        if (spawnDelayTimer <= 0) {
-            spawnDelayTimer = spawnDelay;
-            if (sectionsOnTheRoad.Count == 0 || objectSpeed > 0 && sectionsOnTheRoad[sectionsOnTheRoad.Count - 1].transform.position.z < spawnSectionPoint.position.z ) {
+        if (sectionsOnTheRoad.Count == 0 || sectionsOnTheRoad.Count!= 0 && sectionsOnTheRoad[sectionsOnTheRoad.Count - 1].transform.position.z < (spawnSectionPoint.position.z - spawnDist)) {
+            Debug.Log("Position :" + roadObjects[roadObjects.Length - 1].transform.position.z + " Deuxieme : " + spawnSectionPoint.position.z + " Troisième :" + spawnDist + "Quatrième :" + (spawnSectionPoint.position.z - spawnDist));
                 MakeTheWay();
-            }
-        } else {
-            spawnDelayTimer -= Time.deltaTime;
         }
     }
 
