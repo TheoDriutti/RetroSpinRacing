@@ -44,13 +44,19 @@ public class SpawnManager : MonoBehaviour {
     }
 
     void Update() {
+
         if (spawnDelayTimer <= 0) {
             spawnDelayTimer = spawnDelay;
-            MakeTheWay();
+            if (sectionsOnTheRoad.Count == 0 || objectSpeed > 0 && sectionsOnTheRoad[sectionsOnTheRoad.Count - 1].transform.position.z < spawnSectionPoint.position.z ) {
+                MakeTheWay();
+            }
         } else {
             spawnDelayTimer -= Time.deltaTime;
         }
     }
+
+
+
     public void MakeTheWay() {
         RoadObject leftObjectSpawned = GiveRoadObject(0, RoadObjectIdentity.EMPTY);
         RoadObject centerObjectSpawned = GiveRoadObject(1, RoadObjectIdentity.EMPTY);
