@@ -147,7 +147,7 @@ public class CarController : MonoBehaviour
             speed = speedModifierInInterval.Evaluate(inputTapNumber / 100f) * 100;
             Gino.instance.spawnManager.objectSpeed = speed;
             Gino.instance.decorManager.decorSpeed = speed;
-            Gino.instance.decorManager.lampSpeed = speed;
+            //Gino.instance.decorManager.lampSpeed = speed;
             inputTapNumber = 0;
             currentTapNumberTimer = 0f;
         }
