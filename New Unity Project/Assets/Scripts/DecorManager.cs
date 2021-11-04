@@ -6,22 +6,26 @@ public class DecorManager : MonoBehaviour
 {
     public float decorSpeed;
     public float spawnDelay;
+    public float lampSpawnDelay;
     public GameObject[] decors;
     public Transform[] spawnPoint;
     public int range;
+    public float lampCoeff;
 
     private float currentTime = 0f;
+    private float lampTime = 0f;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        SpawnObjectTimer();   
+        SpawnObjectTimer();
+        SpawnLamp();
     }
 
     void SpawnObject()
@@ -40,6 +44,19 @@ public class DecorManager : MonoBehaviour
         if (currentTime > spawnDelay)
         {
             SpawnObject();
+        }
+    }
+
+    void SpawnLamp()
+    {
+        if (lampTime < lampSpawnDelay)
+        {
+            lampTime += Time.deltaTime - Gino.instance.spawnManager.car.GetSpeed() * lampCoeff;
+        }
+        else
+        {
+            //Instantiate()
+            //lampTime = 0f;
         }
     }
 }

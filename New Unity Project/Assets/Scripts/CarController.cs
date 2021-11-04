@@ -30,7 +30,6 @@ public class CarController : MonoBehaviour
     private int inputTapNumber = 0;
     private float speed;
     private float currentTapNumberTimer = 0f;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -111,7 +110,8 @@ public class CarController : MonoBehaviour
         if (currentLane != Lanes.CRASH_LEFT && currentLane != Lanes.CRASH_RIGHT)
         {
             transform.position = LerpOriginToTarget(transform.position, lanes[(int)currentLane].trans.position, lerpTime);
-        } else
+        }
+        else
         {
             Crash();
         }
@@ -122,10 +122,12 @@ public class CarController : MonoBehaviour
         if (currentTime < crashTime)
         {
             transform.position = LerpOriginToTarget(transform.position, lanes[(int)currentLane].trans.position, crashTime);
-        } else if (currentLane == Lanes.CRASH_LEFT)
+        }
+        else if (currentLane == Lanes.CRASH_LEFT)
         {
             currentLane += 1;
-        } else
+        }
+        else
         {
             currentLane -= 1;
         }
@@ -147,5 +149,10 @@ public class CarController : MonoBehaviour
             inputTapNumber = 0;
             currentTapNumberTimer = 0f;
         }
+    }
+
+    public float GetSpeed()
+    {
+        return speed;
     }
 }

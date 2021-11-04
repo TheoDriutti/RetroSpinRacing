@@ -79,7 +79,6 @@ public class BatteryMinigame : MonoBehaviour
         elapsedTime += Time.deltaTime;
         if (elapsedTime > .5f)
         {
-
             elapsedTime = 0f;
             savedCounter = contactCounter;
             contactCounter = 0;
