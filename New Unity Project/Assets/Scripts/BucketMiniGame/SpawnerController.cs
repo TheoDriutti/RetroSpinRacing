@@ -33,7 +33,7 @@ public class SpawnerController : MonoBehaviour
         {
             ItemPos.x = Random.Range(pos.x - interval, pos.x + interval);
             itemToDrop = Random.Range(0, 2);
-            UIManager.instance.SetNextItem(itemToDrop);
+            UIMiniGameManager.instance.SetNextItem(itemToDrop);
             Instantiate(Item[itemToDrop], new Vector3(ItemPos.x, pos.y, pos.z), Quaternion.identity, transform);
             timerDrop = timeToSpawn;
         }

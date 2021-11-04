@@ -7,6 +7,7 @@ public class Gino : MonoBehaviour {
     public SpawnManager spawnManager;
     public DecorManager decorManager;
     public CarController player;
+
     void Awake() {
         if (instance == null) {
             instance = this;
