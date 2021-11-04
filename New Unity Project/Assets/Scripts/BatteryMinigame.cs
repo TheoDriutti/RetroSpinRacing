@@ -131,7 +131,7 @@ public class BatteryMinigame : MonoBehaviour
     private void OnEnable()
     {
         Gino.instance.player.PauseGame(true);
-        ResetTimer();
+        ResetGame();
     }
 
     private void OnDisable()
@@ -139,8 +139,9 @@ public class BatteryMinigame : MonoBehaviour
         UIScoreManager.instance.pause = false;        
     }
 
-    private void ResetTimer()
+    private void ResetGame()
     {
         minigameTimer = 0;
+        minigameActive = true;
     }
 }

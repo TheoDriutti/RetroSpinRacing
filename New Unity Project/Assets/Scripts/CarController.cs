@@ -35,6 +35,7 @@ public class CarController : MonoBehaviour
     public int coinScoreValue;
     public GameObject littleGreen;
 
+    public GameObject gameOverPanel;
     private Lanes currentLane;
     private float currentTime = 0f;
     private int inputTapNumber = 0;
@@ -76,7 +77,7 @@ public class CarController : MonoBehaviour
 
         SetSpeed();
 
-        if(gameOver && Input.GetKeyDown(KeyCode.R)) 
+        if(gameOver && inputTapNumber > 10) 
         {
             SceneManager.LoadScene(0);
         }
@@ -201,8 +202,12 @@ public class CarController : MonoBehaviour
                     break;
                 case SpawnManager.RoadObjectIdentity.VEHICULE:
                     GameOver();
+                    ParticleSystem smokePs = Gino.instance.ps[1];
+                    smokePs.gameObject.SetActive(true);
                     break;
                 case SpawnManager.RoadObjectIdentity.SLOW:
+                    ParticleSystem shockPs = Gino.instance.ps[0];
+                    Instantiate(shockPs.gameObject, other.gameObject.transform.position, shockPs.transform.rotation);
                     if (slowed == null)
                     {
                         slowed = StartCoroutine(SlowLerpTimer(slowLerpTime));
@@ -241,6 +246,7 @@ public class CarController : MonoBehaviour
     public void GameOver()
     {
         //Gino.instance.spawnManager.objectSpeed = 0;
+        gameOverPanel.SetActive(true);
         gameOver = true;
     }
 
