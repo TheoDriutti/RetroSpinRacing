@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CarController : MonoBehaviour
 {
@@ -36,6 +37,7 @@ public class CarController : MonoBehaviour
     private float oldLerpTime;
     private Coroutine slowed;
     private bool gameOver = false;
+    private bool pause = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -64,14 +66,17 @@ public class CarController : MonoBehaviour
         }
 
         SetSpeed();
+
+        if(gameOver && Input.GetKeyDown(KeyCode.R)) 
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     void CheckCurrentLane()
     {
-        if (!gameOver)
+        if (!gameOver && !pause)
         {
-
-
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 if (currentLane > Lanes.CRASH_LEFT)
@@ -152,7 +157,7 @@ public class CarController : MonoBehaviour
 
     void SetSpeed()
     {
-        if (!gameOver)
+        if (!gameOver && !pause)
         {
             currentTapNumberTimer += Time.deltaTime;
 
@@ -196,6 +201,7 @@ public class CarController : MonoBehaviour
                     }
                     break;
                 case SpawnManager.RoadObjectIdentity.COIN:
+                    Debug.Log("dfefdeyfdedfeydffey : " + UIScoreManager.instance.GetScore());
                     UIScoreManager.instance.UpdateScore(coinScoreValue);
                     break;
                 case SpawnManager.RoadObjectIdentity.BONUS:
@@ -206,10 +212,15 @@ public class CarController : MonoBehaviour
         }
     }
 
-    void GameOver()
+    public void GameOver()
     {
         //Gino.instance.spawnManager.objectSpeed = 0;
         gameOver = true;
+    }
+
+    public void PauseGame(bool isPause)
+    {
+        pause = isPause;
     }
 
     IEnumerator SlowLerpTimer(float timer)

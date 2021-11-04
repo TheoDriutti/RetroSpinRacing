@@ -66,4 +66,9 @@ public class UIScoreManager : MonoBehaviour
         score += amount;
         ScoreTxt.text = "Score : " + score.ToString();
     }
+    
+    public int GetScore()
+    {
+        return score;
+    }
 }
