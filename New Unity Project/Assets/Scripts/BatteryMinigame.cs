@@ -34,37 +34,50 @@ public class BatteryMinigame : MonoBehaviour
     private int savedCounter;
     private float elapsedTime = 0f;
 
+    public float timeDrop;
+    public GameObject timeDropGO;
+    public Text StartText;
+
     public GameObject MiniGame_Parent;
 
     // Start is called before the first frame update
     void Start()
     {
         targetAngle = angleAmplitude;
+        timeDrop = 3;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (minigameActive)
+        timeDrop -= Time.deltaTime;
+        StartText.text = timeDrop.ToString("F0");
+        if (timeDrop < 1)
         {
-            if (minigameTimer < minigameDuration)
-            {
-                minigameTimer += Time.deltaTime;
-                timerText.text = (minigameDuration - minigameTimer).ToString("F1") + "s";
+            timeDropGO.SetActive(false);
 
-                RegisterInputs();
-                MoveNeedle();
-                MoveJauge();
+            if (minigameActive)
+            {
+                if (minigameTimer < minigameDuration)
+                {
+                    minigameTimer += Time.deltaTime;
+                    timerText.text = (minigameDuration - minigameTimer).ToString("F1") + "s";
+
+                    RegisterInputs();
+                    MoveNeedle();
+                    MoveJauge();
+                }
+                else
+                {
+                    Finish();
+                }
             }
             else
             {
-                Finish();
+                EndMiniGame();
             }
         }
-        else
-        {
-            EndMiniGame();
-        }
+
 
     }
 
@@ -136,11 +149,13 @@ public class BatteryMinigame : MonoBehaviour
 
     private void OnDisable()
     {
-        UIScoreManager.instance.pause = false;        
+        UIScoreManager.instance.Resume();       
     }
 
     private void ResetGame()
     {
+        timeDrop = 3;
+        timeDropGO.SetActive(true);
         minigameTimer = 0;
         minigameActive = true;
     }
