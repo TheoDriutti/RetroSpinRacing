@@ -91,6 +91,7 @@ public class CarController : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
+                SoundManager.i.Play("Beep");
                 if (currentLane > Lanes.CRASH_LEFT)
                 {
                     currentLane -= 1;
@@ -99,6 +100,7 @@ public class CarController : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
+                SoundManager.i.Play("Beep");
                 if (currentLane < Lanes.CRASH_RIGHT)
                 {
                     currentLane += 1;
@@ -138,7 +140,6 @@ public class CarController : MonoBehaviour
         //transform.position = lanes[(int)currentLane].trans.position;
         if (currentLane != Lanes.CRASH_LEFT && currentLane != Lanes.CRASH_RIGHT)
         {
-            SoundManager.i.Play("Beep");
             transform.position = LerpOriginToTarget(transform.position, lanes[(int)currentLane].trans.position, lerpTime);
         }
         else
