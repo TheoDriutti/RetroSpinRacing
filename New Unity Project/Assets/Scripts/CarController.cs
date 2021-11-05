@@ -72,14 +72,14 @@ public class CarController : MonoBehaviour
             ChangeLane();
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             AddTap();
         }
 
         SetSpeed();
 
-        if (gameOver && inputTapNumber > 10)
+        if (gameOver && Input.GetKeyDown(KeyCode.LeftArrow))
         {
             SceneManager.LoadScene(0);
         }
@@ -89,7 +89,7 @@ public class CarController : MonoBehaviour
     {
         if (!gameOver && !pause)
         {
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
             {
                 SoundManager.i.Play("Beep");
                 if (currentLane > Lanes.CRASH_LEFT)
@@ -98,7 +98,7 @@ public class CarController : MonoBehaviour
                     currentTime = 0f;
                 }
             }
-            if (Input.GetKeyDown(KeyCode.D))
+            if (Input.GetKeyDown(KeyCode.RightArrow))
             {
                 SoundManager.i.Play("Beep");
                 if (currentLane < Lanes.CRASH_RIGHT)
