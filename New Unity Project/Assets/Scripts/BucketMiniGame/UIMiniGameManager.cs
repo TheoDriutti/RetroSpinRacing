@@ -53,6 +53,6 @@ public class UIMiniGameManager : MonoBehaviour
 
     private void OnDisable()
     {
-        UIScoreManager.instance.pause = false;
+        UIScoreManager.instance.Resume();
     }
 }

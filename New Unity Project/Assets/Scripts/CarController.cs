@@ -33,6 +33,7 @@ public class CarController : MonoBehaviour
     public float bigSize = 1.6f;
     public float normalSize = 1.25f;
     public int coinScoreValue;
+    public float slowSpeedEffect;
     public GameObject littleGreen;
 
     public GameObject gameOverPanel;
@@ -59,6 +60,7 @@ public class CarController : MonoBehaviour
         speedModifierInInterval.postWrapMode = WrapMode.Clamp;
         oldLerpTime = lerpTime;
         SoundManager.i.Play("Music");
+        SoundManager.i.Play("Start");
     }
 
     // Update is called once per frame
@@ -136,6 +138,7 @@ public class CarController : MonoBehaviour
         //transform.position = lanes[(int)currentLane].trans.position;
         if (currentLane != Lanes.CRASH_LEFT && currentLane != Lanes.CRASH_RIGHT)
         {
+            SoundManager.i.Play("Beep");
             transform.position = LerpOriginToTarget(transform.position, lanes[(int)currentLane].trans.position, lerpTime);
         }
         else
@@ -158,6 +161,7 @@ public class CarController : MonoBehaviour
         {
             currentLane -= 1;
         }
+        SoundManager.i.Play("Collision");
     }
 
     void AddTap()
@@ -183,8 +187,16 @@ public class CarController : MonoBehaviour
         }
         else
         {
+            /*if (Gino.instance.spawnManager.objectSpeed > 0f)
+            {
+                Gino.instance.spawnManager.objectSpeed -= slowSpeedEffect * Time.deltaTime;
+                Gino.instance.decorManager.decorSpeed -= slowSpeedEffect * Time.deltaTime;
+            }
+            else
+            {*/
             Gino.instance.spawnManager.objectSpeed = 0f;
             Gino.instance.decorManager.decorSpeed = 0f;
+            //}
         }
     }
 
@@ -202,12 +214,20 @@ public class CarController : MonoBehaviour
                 case SpawnManager.RoadObjectIdentity.EMPTY:
                     break;
                 case SpawnManager.RoadObjectIdentity.VEHICULE:
-                    GameOver();
-                    ParticleSystem smokePs = Gino.instance.ps[1];
-                    smokePs.gameObject.SetActive(true);
+                    if (life > 0)
+                    {
+                        life -= 1;
+                    }
+                    else
+                    {
+                        GameOver();
+                        ParticleSystem smokePs = Gino.instance.ps[1];
+                        smokePs.gameObject.SetActive(true);
+                    }
                     SoundManager.i.Play("Collision");
                     break;
                 case SpawnManager.RoadObjectIdentity.SLOW:
+                    SoundManager.i.Play("Collision");
                     ParticleSystem shockPs = Gino.instance.ps[0];
                     Instantiate(shockPs.gameObject, other.gameObject.transform.position, shockPs.transform.rotation);
                     if (slowed == null)
@@ -218,7 +238,7 @@ public class CarController : MonoBehaviour
                 case SpawnManager.RoadObjectIdentity.COIN:
                     Gino.instance.spawnManager.AddToRecycleList(other.gameObject.GetComponent<RoadObject>());
                     UIScoreManager.instance.UpdateScore(coinScoreValue);
-                    SoundManager.i.Play("Beep");
+                    SoundManager.i.Play("Beep2");
                     if (bigger == null)
                     {
                         bigger = StartCoroutine(BiggerTimer(biggerTime));
@@ -226,7 +246,7 @@ public class CarController : MonoBehaviour
                     break;
                 case SpawnManager.RoadObjectIdentity.BONUS:
                     UIScoreManager.instance.pause = true;
-                    SoundManager.i.Play("Beep");
+                    SoundManager.i.Play("Beep2");
                     if (life < 1)
                     {
                         int rand = Random.Range(0, 3);
