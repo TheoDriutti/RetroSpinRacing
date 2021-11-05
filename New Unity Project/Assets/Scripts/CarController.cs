@@ -211,10 +211,17 @@ public class CarController : MonoBehaviour
                 case SpawnManager.RoadObjectIdentity.EMPTY:
                     break;
                 case SpawnManager.RoadObjectIdentity.VEHICULE:
-                    GameOver();
-                    Gino.instance.soundManager.Play("Bump_car");
-                    ParticleSystem smokePs = Gino.instance.ps[1];
-                    smokePs.gameObject.SetActive(true);
+                    if (life > 0)
+                    {
+                        life -= 1;
+                    }
+                    else
+                    {
+                        GameOver();
+                        Gino.instance.soundManager.Play("Bump_car");
+                        ParticleSystem smokePs = Gino.instance.ps[1];
+                        smokePs.gameObject.SetActive(true);
+                    }
                     break;
                 case SpawnManager.RoadObjectIdentity.SLOW:
                     Gino.instance.soundManager.Play("Collision_car");
