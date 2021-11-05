@@ -33,6 +33,7 @@ public class CarController : MonoBehaviour
     public float bigSize = 1.6f;
     public float normalSize = 1.25f;
     public int coinScoreValue;
+    public float slowSpeedEffect;
     public GameObject littleGreen;
 
     public GameObject gameOverPanel;
@@ -180,10 +181,19 @@ public class CarController : MonoBehaviour
                 inputTapNumber = 0;
                 currentTapNumberTimer = 0f;
             }
-        } else
+        }
+        else
         {
+            /*if (Gino.instance.spawnManager.objectSpeed > 0f)
+            {
+                Gino.instance.spawnManager.objectSpeed -= slowSpeedEffect * Time.deltaTime;
+                Gino.instance.decorManager.decorSpeed -= slowSpeedEffect * Time.deltaTime;
+            }
+            else
+            {*/
             Gino.instance.spawnManager.objectSpeed = 0f;
             Gino.instance.decorManager.decorSpeed = 0f;
+            //}
         }
     }
 
@@ -202,10 +212,12 @@ public class CarController : MonoBehaviour
                     break;
                 case SpawnManager.RoadObjectIdentity.VEHICULE:
                     GameOver();
+                    Gino.instance.soundManager.Play("Bump_car");
                     ParticleSystem smokePs = Gino.instance.ps[1];
                     smokePs.gameObject.SetActive(true);
                     break;
                 case SpawnManager.RoadObjectIdentity.SLOW:
+                    Gino.instance.soundManager.Play("Collision_car");
                     ParticleSystem shockPs = Gino.instance.ps[0];
                     Instantiate(shockPs.gameObject, other.gameObject.transform.position, shockPs.transform.rotation);
                     if (slowed == null)
