@@ -33,6 +33,13 @@ public class CupMovement : MonoBehaviour
     public SpriteRenderer coinSpriteRenderer;
     public Sprite cupOpened;
     public Sprite cupClosed;
+    public Transform arrowTransform;
+
+    public List<Transform> arrowList;
+    public List<Transform> posList;
+    private int iteratorArrow = 0;
+
+    private Transform cupWithCoin;
 
     void Start()
     {
@@ -44,17 +51,20 @@ public class CupMovement : MonoBehaviour
 
     void Update()
     {
-        /*if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.A))
         {
-            SetMovement(ref cup1, ref cup3);
-            //SetMovement(ref cup3, ref cup1);
+            ArrowRight();
         }
 
-        if(Input.GetKeyDown(KeyCode.C))
+        if(Input.GetKeyDown(KeyCode.E))
         {
-            SetMovement(ref cup3, ref cup2);
-           // SetMovement(ref cup2, ref cup3);
-        }*/
+            ArrowLeft();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            CheckWin();
+        }
     }
 
     private void SetMovement(ref Transform cup1, ref Transform cup2)
@@ -129,18 +139,16 @@ public class CupMovement : MonoBehaviour
         }
         else
         {
+            SpawnArrow();
             yield return null;
         }
-    }
-
-    public void SetCoin()
-    {
-
     }
 
     public void CoinRandomizer()
     {
         Transform randomCupCoin = cupList[Random.Range(0, 3)];
+        cupWithCoin = randomCupCoin.transform;
+        Debug.Log(cupWithCoin);
         coinTransform.position = randomCupCoin.position + new Vector3(0, 10, 0);
         coinTransform.gameObject.SetActive(true);
         StartCoroutine(LerpCoin());
@@ -166,7 +174,6 @@ public class CupMovement : MonoBehaviour
 
             coinTransform.position = Vector3.Lerp(firstPosCoin, firstPosCoin - new Vector3(0, 5, 0), fracCompleteCoin);
             newAlpha = Mathf.Lerp(coinAlpha, 0,fracCompleteCoin);
-            Debug.Log(newAlpha);
             coinSpriteRenderer.color = new Color(coinSpriteRenderer.color.r, coinSpriteRenderer.color.g, coinSpriteRenderer.color.b, newAlpha);
 
             yield return new WaitForEndOfFrame();
@@ -175,5 +182,41 @@ public class CupMovement : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         StartCoroutine(Sequencer());
 
+    }
+
+    public void SpawnArrow()
+    {
+        arrowTransform.gameObject.SetActive(true);
+        arrowTransform.position = arrowList[0].position;
+    }
+
+    private void ArrowLeft()
+    {
+        iteratorArrow--;
+        if (iteratorArrow < 0) iteratorArrow = 0;
+        arrowTransform.position = arrowList[iteratorArrow].position;
+    }
+
+    private void ArrowRight()
+    {
+        
+        iteratorArrow++;
+        if (iteratorArrow > 2) iteratorArrow = 2;
+        arrowTransform.position = arrowList[iteratorArrow].position;
+        
+    }
+
+    private void CheckWin()
+    {
+        if(posList[iteratorArrow].position == cupWithCoin.position)
+        {
+            Debug.Log("true");
+        }
+        else
+        {
+            Debug.Log("false");
+        }
+
+        
     }
 }
