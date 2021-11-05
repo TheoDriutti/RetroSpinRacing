@@ -35,7 +35,6 @@ public class SpawnManager : MonoBehaviour {
     public int isOneMoreSectionNeeded = 0;
     public int startVehiculeRange;
     public int startSlowRange;
-    private float spawnDelayTimer = 0;
     void Start() {
         recycleObject = new List<RoadObject>[roadObjects.Length];
         for (int i = 0; i < recycleObject.Length; i++) {

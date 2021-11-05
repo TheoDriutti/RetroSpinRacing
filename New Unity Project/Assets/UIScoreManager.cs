@@ -17,6 +17,10 @@ public class UIScoreManager : MonoBehaviour
     public float timerStart;
     public bool pause;
 
+    public float timeDrop;
+    public GameObject timeDropGO;
+    public Text StartText;
+
     private void Awake()
     {
         if (instance != null && instance != this)
@@ -34,7 +38,13 @@ public class UIScoreManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        UpdateTimer();
+        timeDrop -= Time.deltaTime;
+        StartText.text = timeDrop.ToString("F0");
+        if (timeDrop < 1)
+        {
+            timeDropGO.SetActive(false);
+            UpdateTimer();
+        }
     }
     public void ResetCheckPoint()
     {
@@ -82,6 +92,19 @@ public class UIScoreManager : MonoBehaviour
         ScoreTxt.text = "Score : " + score.ToString();
     }
     
+    public void Resume()
+    {
+        StartCoroutine(ResumeTime());
+    }
+
+    IEnumerator ResumeTime()
+    {
+        timeDrop = 3;
+        timeDropGO.SetActive(true);
+        yield return new WaitForSeconds(3);
+        pause = false;
+    }
+
     public int GetScore()
     {
         return score;

@@ -28,7 +28,15 @@ public class CarController : MonoBehaviour
     public AnimationCurve speedModifierInInterval;
     public float slowLerp;
     public float slowLerpTime;
+    [Header("GainCoin")]
+    public float biggerTime = 0.1f;
+    public float bigSize = 1.6f;
+    public float normalSize = 1.25f;
     public int coinScoreValue;
+    public float slowSpeedEffect;
+    public GameObject littleGreen;
+
+    public GameObject gameOverPanel;
     private Lanes currentLane;
     private float currentTime = 0f;
     private int inputTapNumber = 0;
@@ -36,6 +44,7 @@ public class CarController : MonoBehaviour
     private float currentTapNumberTimer = 0f;
     private float oldLerpTime;
     private Coroutine slowed;
+    private Coroutine bigger;
     private bool gameOver = false;
     private bool pause = false;
     private int life = 0;
@@ -50,6 +59,7 @@ public class CarController : MonoBehaviour
         speedModifierInInterval.preWrapMode = WrapMode.Clamp;
         speedModifierInInterval.postWrapMode = WrapMode.Clamp;
         oldLerpTime = lerpTime;
+        Gino.instance.soundManager.Play("Music");
     }
 
     // Update is called once per frame
@@ -68,7 +78,7 @@ public class CarController : MonoBehaviour
 
         SetSpeed();
 
-        if(gameOver && Input.GetKeyDown(KeyCode.R)) 
+        if(gameOver && inputTapNumber > 10) 
         {
             SceneManager.LoadScene(0);
         }
@@ -171,10 +181,19 @@ public class CarController : MonoBehaviour
                 inputTapNumber = 0;
                 currentTapNumberTimer = 0f;
             }
-        } else
+        }
+        else
         {
+            /*if (Gino.instance.spawnManager.objectSpeed > 0f)
+            {
+                Gino.instance.spawnManager.objectSpeed -= slowSpeedEffect * Time.deltaTime;
+                Gino.instance.decorManager.decorSpeed -= slowSpeedEffect * Time.deltaTime;
+            }
+            else
+            {*/
             Gino.instance.spawnManager.objectSpeed = 0f;
             Gino.instance.decorManager.decorSpeed = 0f;
+            //}
         }
     }
 
@@ -192,9 +211,22 @@ public class CarController : MonoBehaviour
                 case SpawnManager.RoadObjectIdentity.EMPTY:
                     break;
                 case SpawnManager.RoadObjectIdentity.VEHICULE:
-                    GameOver();
+                    if (life > 0)
+                    {
+                        life -= 1;
+                    }
+                    else
+                    {
+                        GameOver();
+                        Gino.instance.soundManager.Play("Bump_car");
+                        ParticleSystem smokePs = Gino.instance.ps[1];
+                        smokePs.gameObject.SetActive(true);
+                    }
                     break;
                 case SpawnManager.RoadObjectIdentity.SLOW:
+                    Gino.instance.soundManager.Play("Collision_car");
+                    ParticleSystem shockPs = Gino.instance.ps[0];
+                    Instantiate(shockPs.gameObject, other.gameObject.transform.position, shockPs.transform.rotation);
                     if (slowed == null)
                     {
                         slowed = StartCoroutine(SlowLerpTimer(slowLerpTime));
@@ -203,6 +235,9 @@ public class CarController : MonoBehaviour
                 case SpawnManager.RoadObjectIdentity.COIN:
                     Gino.instance.spawnManager.AddToRecycleList(other.gameObject.GetComponent<RoadObject>());
                     UIScoreManager.instance.UpdateScore(coinScoreValue);
+                    if (bigger == null) {
+                        bigger = StartCoroutine(BiggerTimer(biggerTime));
+                    }
                     break;
                 case SpawnManager.RoadObjectIdentity.BONUS:
                     UIScoreManager.instance.pause = true;
@@ -230,6 +265,7 @@ public class CarController : MonoBehaviour
     public void GameOver()
     {
         //Gino.instance.spawnManager.objectSpeed = 0;
+        gameOverPanel.SetActive(true);
         gameOver = true;
     }
 
@@ -244,5 +280,14 @@ public class CarController : MonoBehaviour
         yield return new WaitForSeconds(timer);
         lerpTime = oldLerpTime;
         slowed = null;
+    }
+
+    IEnumerator BiggerTimer(float timer) {
+        transform.localScale = new Vector3(bigSize, bigSize, bigSize);
+        littleGreen.SetActive(true);
+        yield return new WaitForSeconds(timer);
+        littleGreen.SetActive(false);
+        transform.localScale = new Vector3(normalSize, normalSize, normalSize);
+        bigger = null;
     }
 }
