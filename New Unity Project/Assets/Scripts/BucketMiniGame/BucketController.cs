@@ -34,7 +34,7 @@ public class BucketController : MonoBehaviour
     private void LoseMiniGame()
     {
         UIScoreManager.instance.UpdateScore(UIMiniGameManager.instance.currentScore);
-        Gino.instance.player.PauseGame(false);
+        UIScoreManager.instance.Resume();
         MiniGame_Parent.SetActive(false);
     }
 

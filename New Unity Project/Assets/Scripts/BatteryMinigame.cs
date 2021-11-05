@@ -38,6 +38,8 @@ public class BatteryMinigame : MonoBehaviour
     public GameObject timeDropGO;
     public Text StartText;
 
+    bool addTime;
+
     public GameObject MiniGame_Parent;
 
     // Start is called before the first frame update
@@ -89,8 +91,7 @@ public class BatteryMinigame : MonoBehaviour
         }
 
         targetAngle = Mathf.Clamp(targetAngle, -angleAmplitude, angleAmplitude);
-        //if(needle.rotation == new Quaternion()) Finish();
-        //Quaternion.
+        if ((-targetAngle + angleAmplitude) / (2 * angleAmplitude) > 0.99f) Finish();
         needle.rotation = Quaternion.Lerp(needle.rotation, Quaternion.Euler(0, 0, targetAngle), Time.deltaTime * lerpSpeed);
     }
 
@@ -137,19 +138,16 @@ public class BatteryMinigame : MonoBehaviour
     private void EndMiniGame()
     {
         UIScoreManager.instance.AddTime(minigameDuration - minigameTimer);
-        Gino.instance.player.PauseGame(false);
+        UIScoreManager.instance.Resume();
         MiniGame_Parent.SetActive(false);
     }
 
     private void OnEnable()
     {
+        addTime = false;
+        minigameActive = true;
         Gino.instance.player.PauseGame(true);
         ResetGame();
-    }
-
-    private void OnDisable()
-    {
-        UIScoreManager.instance.Resume();       
     }
 
     private void ResetGame()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CupMovement : MonoBehaviour
 {
@@ -41,6 +42,10 @@ public class CupMovement : MonoBehaviour
 
     private Transform cupWithCoin;
 
+    public Text EndText;
+
+    public GameObject MiniGame_Parent;
+
     void Start()
     {
         // Note the time at the start of the animation.
@@ -51,12 +56,12 @@ public class CupMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.D))
         {
             ArrowRight();
         }
 
-        if(Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.Q))
         {
             ArrowLeft();
         }
@@ -149,7 +154,7 @@ public class CupMovement : MonoBehaviour
         Transform randomCupCoin = cupList[Random.Range(0, 3)];
         cupWithCoin = randomCupCoin.transform;
         Debug.Log(cupWithCoin);
-        coinTransform.position = randomCupCoin.position + new Vector3(0, 10, 0);
+        coinTransform.position = randomCupCoin.position + new Vector3(0, 2, 0);
         coinTransform.gameObject.SetActive(true);
         StartCoroutine(LerpCoin());
     }
@@ -172,7 +177,7 @@ public class CupMovement : MonoBehaviour
             elapsedTimeCoin += Time.deltaTime;
             float fracCompleteCoin = elapsedTimeCoin / journeyTimeCoin;
 
-            coinTransform.position = Vector3.Lerp(firstPosCoin, firstPosCoin - new Vector3(0, 5, 0), fracCompleteCoin);
+            coinTransform.position = Vector3.Lerp(firstPosCoin, firstPosCoin - new Vector3(0, 3, 0), fracCompleteCoin);
             newAlpha = Mathf.Lerp(coinAlpha, 0,fracCompleteCoin);
             coinSpriteRenderer.color = new Color(coinSpriteRenderer.color.r, coinSpriteRenderer.color.g, coinSpriteRenderer.color.b, newAlpha);
 
@@ -210,13 +215,47 @@ public class CupMovement : MonoBehaviour
     {
         if(posList[iteratorArrow].position == cupWithCoin.position)
         {
-            Debug.Log("true");
+            Gino.instance.player.life++;
+            EndText.text = "True ! +1 up";
+            EndText.gameObject.SetActive(true);
+
         }
         else
         {
-            Debug.Log("false");
+            EndText.text = "Wrong !";
+            EndText.gameObject.SetActive(true);
         }
+        //StartCoroutine(WaitToEnd());
 
-        
+    }
+    IEnumerator WaitToEnd()
+    {
+        yield return new WaitForSeconds(2);
+        EndMiniGame();
+    }
+    private void EndMiniGame()
+    {
+        UIScoreManager.instance.Resume();
+        MiniGame_Parent.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        Gino.instance.player.PauseGame(true);
+        ResetGame();
+    }
+
+    public void ResetGame()
+    {
+        EndText.gameObject.SetActive(false);
+        elapsedTime = 0.0f;
+        //for (int i = 0; i < 3; i++)
+        //{
+        //    cupList[i].position = posList[i].position;
+        //    cupList[i].position = cupList[i].position + new Vector3(0, -1, 0);
+        //    arrowList[i].position = posList[i].position;
+        //    arrowList[i].position = arrowList[i].position + new Vector3(0, -2.5f, 0);
+        //}
+        CoinRandomizer();
     }
 }

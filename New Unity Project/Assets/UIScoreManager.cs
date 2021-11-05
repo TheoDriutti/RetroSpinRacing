@@ -102,6 +102,7 @@ public class UIScoreManager : MonoBehaviour
         timeDrop = 3;
         timeDropGO.SetActive(true);
         yield return new WaitForSeconds(3);
+        Gino.instance.player.PauseGame(false);
         pause = false;
     }
 
