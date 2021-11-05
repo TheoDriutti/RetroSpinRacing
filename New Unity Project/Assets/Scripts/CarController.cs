@@ -58,7 +58,7 @@ public class CarController : MonoBehaviour
         speedModifierInInterval.preWrapMode = WrapMode.Clamp;
         speedModifierInInterval.postWrapMode = WrapMode.Clamp;
         oldLerpTime = lerpTime;
-        Gino.instance.soundManager.Play("Music");
+        SoundManager.i.Play("Music");
     }
 
     // Update is called once per frame
@@ -77,7 +77,7 @@ public class CarController : MonoBehaviour
 
         SetSpeed();
 
-        if(gameOver && inputTapNumber > 10) 
+        if (gameOver && inputTapNumber > 10)
         {
             SceneManager.LoadScene(0);
         }
@@ -180,7 +180,8 @@ public class CarController : MonoBehaviour
                 inputTapNumber = 0;
                 currentTapNumberTimer = 0f;
             }
-        } else
+        }
+        else
         {
             Gino.instance.spawnManager.objectSpeed = 0f;
             Gino.instance.decorManager.decorSpeed = 0f;
@@ -192,7 +193,7 @@ public class CarController : MonoBehaviour
         return speed;
     }
 
-    private void OnCollisionEnter (Collision other)
+    private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.GetComponent<RoadObject>() != null)
         {
@@ -204,6 +205,7 @@ public class CarController : MonoBehaviour
                     GameOver();
                     ParticleSystem smokePs = Gino.instance.ps[1];
                     smokePs.gameObject.SetActive(true);
+                    SoundManager.i.Play("Collision");
                     break;
                 case SpawnManager.RoadObjectIdentity.SLOW:
                     ParticleSystem shockPs = Gino.instance.ps[0];
@@ -216,12 +218,15 @@ public class CarController : MonoBehaviour
                 case SpawnManager.RoadObjectIdentity.COIN:
                     Gino.instance.spawnManager.AddToRecycleList(other.gameObject.GetComponent<RoadObject>());
                     UIScoreManager.instance.UpdateScore(coinScoreValue);
-                    if (bigger == null) {
+                    SoundManager.i.Play("Beep");
+                    if (bigger == null)
+                    {
                         bigger = StartCoroutine(BiggerTimer(biggerTime));
                     }
                     break;
                 case SpawnManager.RoadObjectIdentity.BONUS:
                     UIScoreManager.instance.pause = true;
+                    SoundManager.i.Play("Beep");
                     if (life < 1)
                     {
                         int rand = Random.Range(0, 3);
@@ -263,7 +268,8 @@ public class CarController : MonoBehaviour
         slowed = null;
     }
 
-    IEnumerator BiggerTimer(float timer) {
+    IEnumerator BiggerTimer(float timer)
+    {
         transform.localScale = new Vector3(bigSize, bigSize, bigSize);
         littleGreen.SetActive(true);
         yield return new WaitForSeconds(timer);
